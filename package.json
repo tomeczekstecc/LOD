@@ -1,0 +1,12 @@
+{
+  "name": "LOD",
+  "version": "1.0.0",
+  "description": "Lsi On Duty",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tomasz Steć",
+  "license": "ISC"
+}
