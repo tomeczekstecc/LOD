@@ -6,11 +6,17 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, 'Muszisz podać nazwę uzytkownika.'],
-    minlength: [
-      2,
-      'Nazwa uzytkownika musi składać się co najmniej z 2 znaków.',
-    ],
+    // minlength: [
+    //   2,
+    //   'Nazwa uzytkownika musi składać się co najmniej z 2 znaków.',
+    // ],
+    // maxlength: [2, 'Nazwa uzytkownika może składać się najwyżej z 3 znaków.'],
     trim: true,
+    validate: [
+      /^[A-Za-z]{2,3}$/,
+      'Nazwa uzytkownika może składać się z 2 lub 3 liter (inicjały)',
+    ],
+    uppercase: true,
   },
   email: {
     type: String,
@@ -32,7 +38,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['oper', 'admin'],
     default: 'oper',
-    required: [true, 'Podaj typ operatora'],
+
   },
   refreshToken: {
     type: String,
@@ -58,9 +64,9 @@ userSchema.statics.login = async function (email, password) {
       return user;
     }
 
-    throw Error('Niepoprawne dane logowania - błedny email lub hasło.');
+    throw Error('Niepoprawne dane logowania - błędny email lub hasło.');
   }
-  throw Error('Niepoprawne dane logowania - błedny email lub hasło.');
+  throw Error('Niepoprawne dane logowania - błędny email lub hasło.');
 };
 
 const User = mongoose.model('user', userSchema);
