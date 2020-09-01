@@ -5,11 +5,6 @@ const getAllDutiesInMonth_get = async (req, res) => {
 
   try {
     const searchParam = `${year}-${month}-??`;
-    console.log(`
---------------------
-    searchParam
---------------------
-    `);
 
     const duties = await Duty.find({ dutyDate: { $regex: `${searchParam}` } });
     return res.status(200).json({

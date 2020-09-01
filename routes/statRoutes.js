@@ -5,7 +5,7 @@ const { getAllDutiesInMonth_get } = require('../conrollers/statController');
 
 router.get(
   '/getallinmonth/:year/:month',
-  requireAuth,
+  // requireAuth,
   getAllDutiesInMonth_get
 );
 

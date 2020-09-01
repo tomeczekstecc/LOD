@@ -39,6 +39,8 @@ const addDuty_post = async (req, res) => {
 
 const deleteDuty_delete = async (req, res) => {
   try {
+
+    console.log(req.params.id);
     const duty = await Duty.findOne({ _id: req.params.id });
 
     if (!duty) {
@@ -49,7 +51,14 @@ const deleteDuty_delete = async (req, res) => {
 
     const owner = duty.userId;
 
-    if (owner !== req.user.id) {
+
+
+    if (
+      owner !==
+      //@tylko testy
+      // req.user.id
+      '5f4a95df4d74782f6823ba47'
+    ) {
       return res.status(403).json({
         result: 'failed',
         message: 'Nie możesz usuwać cudzego dyżuru.',
