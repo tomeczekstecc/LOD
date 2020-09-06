@@ -1,6 +1,7 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv')
+const path = require('path')
 const cors = require('cors');
 const connectDB = require('./config/db')
 
@@ -19,6 +20,7 @@ app.use(
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/api/auth',require('./routes/authRoutes'))
 app.use('/api/duty',require('./routes/dutyRoutes'))

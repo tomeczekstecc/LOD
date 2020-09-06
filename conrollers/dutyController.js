@@ -23,7 +23,7 @@ const addDuty_post = async (req, res) => {
     });
     return res
       .status(200)
-      .json({ result: 'success', message: 'Utworzono dyżur.' });
+      .json({ result: 'success', message: 'Utworzono dyżur.' })
   } catch (err) {
     return res.json({
       result: 'failed',
@@ -39,8 +39,6 @@ const addDuty_post = async (req, res) => {
 
 const deleteDuty_delete = async (req, res) => {
   try {
-
-    console.log(req.params.id);
     const duty = await Duty.findOne({ _id: req.params.id });
 
     if (!duty) {
