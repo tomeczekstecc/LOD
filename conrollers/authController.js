@@ -69,6 +69,7 @@ const login_post = async (req, res) => {
   try {
     const user = await User.login(email, password);
 
+
     if (!user) {
       return res.json({
         message: 'Logowanie nieudane.',
@@ -77,7 +78,6 @@ const login_post = async (req, res) => {
     } else {
       const accessToken = createAccessToken(user._id, user.userType);
       const refreshToken = createRefreshToken(user._id);
-
 
       await User.updateOne(
         { _id: user._id },
@@ -88,7 +88,7 @@ const login_post = async (req, res) => {
         }
       );
       sendRefreshToken(res, refreshToken);
-      sendAccessToken(req, res, accessToken);
+      sendAccessToken(req, res, accessToken, user.username);
     }
   } catch (err) {
     return res.status(400).json({
@@ -106,18 +106,16 @@ const login_post = async (req, res) => {
 //@todo - auth
 
 const refreshToken_post = async (req, res) => {
-
   const token = req.cookies.refreshToken;
 
   if (!token) {
-    return res.send({ accessToken: '',msg:'Brak tokena odświerzającego.' });
+    return res.send({ accessToken: '', msg: 'Brak tokena odświerzającego.' });
   }
 
   let payload = null;
 
   try {
     payload = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-
   } catch (err) {
     return res.send({ accessToken: '', msg: 'Token odświerzający niezgodny' });
   }
@@ -125,13 +123,13 @@ const refreshToken_post = async (req, res) => {
   const user = await User.findOne({ _id: payload.userId });
 
   if (!user || user.refreshToken !== token) {
-    return res.send({ accessToken: '',msg:'Nie znaleziono użytkownika' });
+    return res.send({ accessToken: '', msg: 'Nie znaleziono użytkownika' });
   }
 
   const accessToken = createAccessToken(user._id, user.userType);
   const refreshToken = createRefreshToken(user._id);
 
-   await User.updateOne(
+  await User.updateOne(
     { _id: user._id },
     {
       $set: {
@@ -140,8 +138,8 @@ const refreshToken_post = async (req, res) => {
     }
   );
 
-    sendRefreshToken(res, refreshToken);
-    return res.send({ accessToken });
+  sendRefreshToken(res, refreshToken);
+  return res.send({ accessToken, loggedInUsername: user.username });
 };
 
 //@desc login user

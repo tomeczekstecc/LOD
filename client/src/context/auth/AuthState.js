@@ -22,7 +22,8 @@ const AuthState = (props) => {
           },
         })
       ).json();
-      setUser({
+      await setUser({
+        username: result.loggedInUsername,
         accessToken: result.accessToken,
       });
     };
@@ -44,9 +45,7 @@ const AuthState = (props) => {
     dispatch({
       type: LOGOUT_USER,
     });
-
   };
-
 
   return (
     <AuthContext.Provider value={{ user: state.user, setUser, logoutCallback }}>

@@ -18,7 +18,7 @@ export const getMonthName = (number) => {
 
  const monthName = months.map((month, i) => {
     if (i === number) {
-      return month;
+      return month.slice(0,1).toUpperCase()+month.slice(1)
     } else {
       return null;
     }

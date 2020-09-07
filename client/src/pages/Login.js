@@ -9,7 +9,7 @@ const Login = ({ history }) => {
   const { user, setUser } = authContext;
 
 
-  // if(user.accessToken!==''){
+  // if(user.accessToken!=''){
   //   history.push('/')
   // }
 
@@ -37,6 +37,7 @@ const Login = ({ history }) => {
     await axios.post('/api/auth/login', body, headers).then((res) => {
       setUser({
         accessToken: res.data.accessToken,
+        username: res.data.username
       });
 
       history.push('/');

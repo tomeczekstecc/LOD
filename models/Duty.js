@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
+const User = require('./User');
 
 const dutySchema = mongoose.Schema({
   userId: {
     type: String,
     required: [true, 'Musisz podać ID użytkownika.'],
+  },
+  username: {
+    type: String
+
   },
   dutyDate: {
     type: String,
@@ -16,6 +21,12 @@ const dutySchema = mongoose.Schema({
   },
 });
 
+dutySchema.pre('save', async function (next) {
+  const user = await User.find({ _id: this.userId });
 
-const Duty = mongoose.model('duty', dutySchema)
-module.exports = Duty
+  this.username = user[0].username;
+  next();
+});
+
+const Duty = mongoose.model('duty', dutySchema);
+module.exports = Duty;

@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
       'Nazwa uzytkownika może składać się z 2 lub 3 liter (inicjały)',
     ],
     uppercase: true,
+    unique: [true, 'Ta nazwa użytkownika już istnieje.'],
   },
   email: {
     type: String,
@@ -38,7 +39,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['oper', 'admin'],
     default: 'oper',
-
   },
   refreshToken: {
     type: String,

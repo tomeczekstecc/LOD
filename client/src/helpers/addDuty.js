@@ -5,6 +5,7 @@ const addDuty = async (data) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
+      'x-auth-token': data.accessToken,
     },
   };
 
