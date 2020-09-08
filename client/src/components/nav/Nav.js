@@ -14,18 +14,18 @@ const Nav = ({
   return (
     <NavWrapper year={year}>
       <div className='section pt-3 pb-3'>
-        <button onClick={decreaseMonth} className='button is-outlined mx-2 '>
+        <button onClick={decreaseMonth} className='button is-light mx-2 '>
           <BsChevronLeft className='icon' />
         </button>
         <span className='title is-2'>{getMonthName(month)}</span>
-        <button onClick={increaseMonth} className='button is-outlined  '>
+        <button onClick={increaseMonth} className='button is-light'>
           <BsChevronRight className='icon ' />
         </button>
         <div id='subtitle'>
           <button
             onClick={decreaseYear}
             id='btn-left'
-            className='button is-light mx-2 is-small'
+            className='button mx-2 is-light is-small'
           >
             <BsChevronLeft className='icon has-text-grey' />
           </button>

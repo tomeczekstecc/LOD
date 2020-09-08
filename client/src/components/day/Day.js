@@ -4,6 +4,8 @@ import 'moment/locale/pl'; // without this line it didn't work
 import addDuty from '../../helpers/addDuty';
 import deleteDuty from '../../helpers/deleteDuty';
 import { DayStyles } from './Day.styles';
+import { MdWork } from 'react-icons/md';
+import { GiPalmTree } from 'react-icons/gi';
 
 moment.locale('pl');
 
@@ -88,12 +90,13 @@ console.log(loggedInUsername);
         day={day.getDay()}
       >
         <p className='title'>{day.getDate()}</p>
-        <p className='subtitle'>{displayDate}</p>
+        <p className='subtitle mb-1'>{displayDate}</p>
 
         <div className='found'>
           {found.map((item) => (
-            <h4 key={item.dutyDate + item.userId}>
-              {item.username} {' - ' + item.dutyType}
+
+            <h4 key={item.dutyDate + item.userId} className={`is-size-7 ${item.dutyType}`}>
+              {item.username} {item.dutyType ==='dutyOn' ? <MdWork className='on'/> : <GiPalmTree className='off'/> }
             </h4>
           ))}
         </div>

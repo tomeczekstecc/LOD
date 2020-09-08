@@ -15,4 +15,7 @@ export const TogglerWrapper = styled.div`
     transform: ${(props) => props.offDutyMode ? 'scale(1.3)' : 'scale(1)' } ;
     color: ${(props) => props.offDutyMode ? '#444' : 'scale(1)' } ;
   }
+position: absolute;
+top: 2rem;
+right:2rem;
 `;

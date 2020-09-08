@@ -10,13 +10,12 @@ import { getDaysFromDataBase } from '../../helpers/getDaysFromDataBase';
 function Month({ history }) {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
-  // if (
-  //   !user.accessToken ||
-  //   user.accessToken === undefined ||
-  //   user.accessToken === ''
-  // ) {
-  //   history.push('/login');
-  // }
+
+  if (
+    user === ''
+  ) {
+    history.push('/login');
+  }
   const [offDutyMode, setOffDutyMode] = useState(false);
   const [days, setDays] = useState([]);
   const [data, setData] = useState(null);

@@ -6,7 +6,7 @@ import { TogglerWrapper } from './Toggler.styles';
 
 const Toggler = ({ offDutyMode, setOffDutyMode }) => {
   return (
-    <TogglerWrapper offDutyMode={offDutyMode}>
+    <TogglerWrapper title = 'Wybierz tryb: dużur lub urlop' offDutyMode={offDutyMode}>
       <MdWork className='icon' id='off' />
       {offDutyMode ? (
         <CgToggleOff

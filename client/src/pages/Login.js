@@ -9,9 +9,9 @@ const Login = ({ history }) => {
   const { user, setUser } = authContext;
 
 
-  // if(user.accessToken!=''){
-  //   history.push('/')
-  // }
+  if(user.username){
+    history.push('/')
+  }
 
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
