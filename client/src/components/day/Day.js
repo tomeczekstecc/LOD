@@ -6,7 +6,7 @@ import deleteDuty from '../../helpers/deleteDuty';
 import { DayStyles } from './Day.styles';
 import { MdWork } from 'react-icons/md';
 import { GiPalmTree } from 'react-icons/gi';
-import { freeDays2020 } from '../../helpers/freeDays'
+import { freeDays2020 } from '../../helpers/freeDays';
 
 moment.locale('pl');
 
@@ -17,7 +17,7 @@ const Day = ({
   setLoading,
   offDutyMode,
   loggedInUsername,
-  accessToken
+  accessToken,
 }) => {
   const [found, setFound] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -28,9 +28,7 @@ const Day = ({
   const searchParam = moment(day).format('YYYY-MM-DD');
 
   const handleOnClick = () => {
-
     if (busyDay && loggedInUsername === busyDay.username) {
-
       deleteDuty(busyDay._id, accessToken);
     } else {
       let dutyType;
@@ -70,10 +68,9 @@ const Day = ({
       })
     );
 
-
     setIsFreeDay(
       freeDays2020.find((item) => {
-        if (item.dutyDate === searchParam && item.dutyType === 'dutyOn') {
+        if (item.date === searchParam) {
           return true;
         } else {
           return false;
@@ -101,22 +98,35 @@ const Day = ({
         onClick={handleOnClick}
         className='tile m-3 notification is-primary'
         day={day.getDay()}
+        isFreeDay={isFreeDay}
       >
         <p className='title'>{day.getDate()}</p>
         <p className='subtitle mb-1'>{displayDate}</p>
 
         <div className='found'>
           {found.map((item) => (
-
-            <h4 key={item.dutyDate + item.userId} className={`is-size-7 ${item.dutyType}`}>
-              {item.username} {item.dutyType === 'dutyOn' ? <MdWork className='on' /> : <GiPalmTree className='off' />}
+            <h4
+              key={item.dutyDate + item.userId}
+              className={`is-size-7 ${item.dutyType} ${
+                loggedInUsername === item.username && item.dutyType === 'dutyOn'
+                  ? 'pulse'
+                  : null
+              }`}
+            >
+              {item.username}{' '}
+              {item.dutyType === 'dutyOn' ? (
+                <MdWork className='on' />
+              ) : (
+                <GiPalmTree className='off' />
+              )}
             </h4>
           ))}
+
+          <i>{isFreeDay && isFreeDay.name}</i>
         </div>
       </DayStyles>
     </>
   );
 };
-
 
 export default Day;

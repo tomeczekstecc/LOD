@@ -12,10 +12,14 @@ export const DayStyles = styled.article`
   background: ${(props) => (props.hasDutyOn ? null : '#94949a !important')};
 
   background: ${(props) =>
-    props.day === 6 || props.day === 0 ? '#555 !important' : null};
+    props.day === 6 || props.day === 0 || props.isFreeDay
+      ? '#555 !important'
+      : null};
 
   pointer-events: ${(props) =>
-    props.day === 6 || props.day === 0 ? 'none !important' : null};
+    props.day === 6 || props.day === 0 || props.isFreeDay
+      ? 'none !important'
+      : null};
 
   transition: background 0.3s ease;
 
@@ -59,5 +63,30 @@ export const DayStyles = styled.article`
     border-radius: 10px;
     padding: 1px 4px;
     background: #797979;
+  }
+
+  .pulse {
+    animation: animate 3s ease-in-out infinite;
+  }
+
+  @keyframes animate {
+    0% {
+      box-shadow: 0 0 0 0 rgba(194, 41, 76, 0);
+    }
+    20% {
+      box-shadow: 0 0 0 2px rgba(194, 41, 76, 0.7);
+    }
+    40% {
+      box-shadow: 0 0 0 4px rgba(194, 41, 76, 0);
+    }
+    80% {
+      box-shadow: 0 0 0 6px rgba(194, 41, 76, 0);
+    }
+    80% {
+      box-shadow: 0 0 0 4px rgba(194, 41, 76, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(194, 41, 76, 0);
+    }
   }
 `;
