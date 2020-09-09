@@ -6,6 +6,7 @@ import deleteDuty from '../../helpers/deleteDuty';
 import { DayStyles } from './Day.styles';
 import { MdWork } from 'react-icons/md';
 import { GiPalmTree } from 'react-icons/gi';
+import { freeDays2020 } from '../../helpers/freeDays'
 
 moment.locale('pl');
 
@@ -22,13 +23,14 @@ const Day = ({
   const [isFetching, setIsFetching] = useState(false);
   const [hasDutyOn, setHasDutyOn] = useState(false);
   const [busyDay, setBusyDay] = useState(null);
+  const [isFreeDay, setIsFreeDay] = useState(false);
   const displayDate = moment(day).format('dddd');
   const searchParam = moment(day).format('YYYY-MM-DD');
 
   const handleOnClick = () => {
 
     if (busyDay && loggedInUsername === busyDay.username) {
-console.log(loggedInUsername);
+
       deleteDuty(busyDay._id, accessToken);
     } else {
       let dutyType;
@@ -68,6 +70,17 @@ console.log(loggedInUsername);
       })
     );
 
+
+    setIsFreeDay(
+      freeDays2020.find((item) => {
+        if (item.dutyDate === searchParam && item.dutyType === 'dutyOn') {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+
     setHasDutyOn(
       data.find((item) => {
         if (item.dutyDate === searchParam && item.dutyType === 'dutyOn') {
@@ -96,7 +109,7 @@ console.log(loggedInUsername);
           {found.map((item) => (
 
             <h4 key={item.dutyDate + item.userId} className={`is-size-7 ${item.dutyType}`}>
-              {item.username} {item.dutyType ==='dutyOn' ? <MdWork className='on'/> : <GiPalmTree className='off'/> }
+              {item.username} {item.dutyType === 'dutyOn' ? <MdWork className='on' /> : <GiPalmTree className='off' />}
             </h4>
           ))}
         </div>
