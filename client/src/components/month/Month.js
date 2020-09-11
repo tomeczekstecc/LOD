@@ -3,6 +3,7 @@ import AuthContext from '../../context/auth/authContext';
 import Day from '../../components/day/Day';
 import Nav from '../../components/nav/Nav';
 import Toggler from '../../components/toggler/Toggler';
+import Welcome from '../../components/welcome/Welcome';
 import { MonthStyles, MonthWrapper } from './Month.styles';
 import { getDaysInMonth } from '../../helpers/getDaysInMonth';
 import { getDaysFromDataBase } from '../../helpers/getDaysFromDataBase';
@@ -99,6 +100,7 @@ function Month({ history }) {
   if (data) {
     return (
       <MonthWrapper className='has-background-info-light'>
+        <Welcome/>
         <Nav
           increaseMonth={increaseMonth}
           decreaseMonth={decreaseMonth}
