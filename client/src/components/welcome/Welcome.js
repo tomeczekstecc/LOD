@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { WelcomeWrapper } from './Welcome.styles';
 
-const Welcome = () => {
+const Welcome = ({ username }) => {
   return (
-    <div>
-      Welcome
-    </div>
-  )
-}
+    <WelcomeWrapper>
+      Witaj <span className='has-text-light'>{username}</span>
+    </WelcomeWrapper>
+  );
+};
 
-export default Welcome
+export default Welcome;

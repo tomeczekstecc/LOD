@@ -4,6 +4,7 @@ import Day from '../../components/day/Day';
 import Nav from '../../components/nav/Nav';
 import Toggler from '../../components/toggler/Toggler';
 import Welcome from '../../components/welcome/Welcome';
+import Statistics from '../../components/statistics/Statistics';
 import { MonthStyles, MonthWrapper } from './Month.styles';
 import { getDaysInMonth } from '../../helpers/getDaysInMonth';
 import { getDaysFromDataBase } from '../../helpers/getDaysFromDataBase';
@@ -12,9 +13,7 @@ function Month({ history }) {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
 
-  if (
-    user === ''
-  ) {
+  if (user === '') {
     history.push('/login');
   }
   const [offDutyMode, setOffDutyMode] = useState(false);
@@ -100,19 +99,24 @@ function Month({ history }) {
   if (data) {
     return (
       <MonthWrapper className='has-background-info-light'>
-        <Welcome/>
-        <Nav
-          increaseMonth={increaseMonth}
-          decreaseMonth={decreaseMonth}
-          increaseYear={increaseYear}
-          decreaseYear={decreaseYear}
-          month={month}
-          year={year}
-        />
-        <Toggler offDutyMode={offDutyMode} setOffDutyMode={setOffDutyMode} />
+        <div className='top-panel'>
+          <Welcome username={user.username} />
+          <Nav
+            increaseMonth={increaseMonth}
+            decreaseMonth={decreaseMonth}
+            increaseYear={increaseYear}
+            decreaseYear={decreaseYear}
+            month={month}
+            year={year}
+          />
+          <Toggler offDutyMode={offDutyMode} setOffDutyMode={setOffDutyMode} />
+        </div>
         <MonthStyles className='App ml-5 mr-5 mt-5 mb-5 '>
-          {ghostDays && ghostDays.map((item, i) => <div key={i}></div>)}
-          {renderDays}
+          <div className='days'>
+            {ghostDays && ghostDays.map((item, i) => <div key={i}></div>)}
+            {renderDays}
+          </div>
+          <Statistics data={data} />
         </MonthStyles>
       </MonthWrapper>
     );
