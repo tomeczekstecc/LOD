@@ -14,7 +14,7 @@ const AuthState = (props) => {
   useEffect(() => {
     const checkRefreshToken = async () => {
       const result = await (
-        await fetch('http://localhost:5000/api/auth/refresh_token', {
+        await fetch('/api/auth/refresh_token', {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -38,7 +38,7 @@ const AuthState = (props) => {
   };
 
   const logoutCallback = async () => {
-    await fetch('http://localhost:5000/api/auth/logout', {
+    await fetch('/api/auth/logout', {
       method: 'POST',
       credentials: 'include',
     });
