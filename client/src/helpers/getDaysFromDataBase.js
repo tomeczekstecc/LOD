@@ -3,7 +3,7 @@ export const getDaysFromDataBase = async (month, year) => {
 
   const data = await (
     await fetch(
-      `http://localhost:5000/api/stat/getallinmonth/${year}/${monthParam}`,
+      `/api/stat/getallinmonth/${year}/${monthParam}`,
       {
         headers: {
           'Content-Type': 'application/json',
